@@ -16,6 +16,7 @@ import fastifyObjectionjs from 'fastify-objectionjs';
 import qs from 'qs';
 import Pug from 'pug';
 import i18next from 'i18next';
+import * as dotenv from 'dotenv';
 
 import ru from './locales/ru.js';
 import en from './locales/en.js';
@@ -26,6 +27,7 @@ import * as knexConfig from '../knexfile.js';
 import models from './models/index.js';
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
+dotenv.config();
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
 const mode = process.env.NODE_ENV || 'development';
@@ -105,7 +107,7 @@ const registerPlugins = async (app) => {
       failureRedirect: app.reverse('root'),
       failureFlash: i18next.t('flash.authError'),
     },
-  // @ts-ignore
+    // @ts-ignore
   )(...args));
 
   await app.register(fastifyMethodOverride);
